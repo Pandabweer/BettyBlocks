@@ -1,0 +1,47 @@
+{
+  "label": "Collection number functions",
+  "description": "Utility functions for collection on numeric properties",
+  "category": "CRUD",
+  "icon": { "name": "DataIcon", "color": "Teal" },
+  "options": [
+    {
+      "name": "collection",
+      "label": "Collection",
+      "meta": {
+        "type": "Collection",
+        "validations": { "required": true }
+      }
+    },
+    {
+      "meta": {
+        "allowedKinds": ["INTEGER", "PRICE", "BOOLEAN", "DECIMAL", "SERIAL"],
+        "type": "Property",
+        "model": "collection",
+        "validations": { "required": true }
+      },
+      "configuration": {
+        "dependsOn": [
+          {
+            "option": "collection",
+            "action": "CLEAR"
+          }
+        ]
+      },
+      "name": "property",
+      "label": "Property"
+    },
+    {
+      "meta": {
+        "type": "Output",
+        "output": {
+          "type": "Number"
+        },
+        "validations": { "required": true }
+      },
+      "name": "out",
+      "label": "As",
+      "info": "The resulting sum of the collection."
+    }
+  ],
+  "yields": "NONE"
+}
