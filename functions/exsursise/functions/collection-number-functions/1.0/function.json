@@ -1,0 +1,64 @@
+{
+  "label": "Collection number functions",
+  "description": "A collection of numeretic functions for collections",
+  "category": "CRUD",
+  "icon": { "name": "DataIcon", "color": "Teal" },
+  "options": [
+    {
+      "name": "collection",
+      "label": "Collection",
+      "meta": {
+        "type": "Collection",
+        "validations": { "required": true }
+      }
+    },
+    {
+      "meta": {
+        "type": "Property",
+        "model": "collection",
+        "validations": { "required": true }
+      },
+      "configuration": {
+        "dependsOn": [
+          {
+            "option": "collection",
+            "action": "CLEAR"
+          }
+        ]
+      },
+      "name": "property",
+      "label": "Property"
+    },
+    {
+      "meta": {
+        "type": "Select",
+        "validations": { "required": true },
+        "default": "Sum",
+        "values": [
+          { "name": "sum", "label": "Sum" },
+          { "name": "count", "label": "Count" },
+          { "name": "avarage", "label": "Average" }
+        ]
+      },
+      "configuration": {
+        "dependsOn": ["collection"]
+      },
+      "name": "func",
+      "label": "Function",
+      "info": "Function to apply to the property"
+    },
+    {
+      "meta": {
+        "type": "Output",
+        "output": {
+          "type": "Number"
+        },
+        "validations": { "required": true }
+      },
+      "name": "out",
+      "label": "As",
+      "info": "The resulting sum of the collection."
+    }
+  ],
+  "yields": "NONE"
+}

@@ -1,8 +1,7 @@
-const collectionFunction = async ({
+const collectionSum = async ({
   collection: { data: collection },
   property: [{ kind: propertyKind, name: propertyName }]
 }) => {
-  console.log(func)
   return {
     out: collection.reduce(
       (accumulator, record) => accumulator + parseFloat(record[propertyName]),
@@ -11,4 +10,4 @@ const collectionFunction = async ({
   };
 };
 
-export default collectionFunction;
+export default collectionSum;

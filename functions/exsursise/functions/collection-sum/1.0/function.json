@@ -1,6 +1,6 @@
 {
-  "label": "Collection number functions",
-  "description": "Utility functions for collection on numeric properties",
+  "label": "Collection sum",
+  "description": "Sum a collection on a property",
   "category": "CRUD",
   "icon": { "name": "DataIcon", "color": "Teal" },
   "options": [
@@ -14,8 +14,8 @@
     },
     {
       "meta": {
-        "allowedKinds": ["INTEGER", "PRICE", "BOOLEAN", "DECIMAL", "SERIAL"],
         "type": "Property",
+        "allowedKinds": ["BOOLEAN", "DECIMAL", "INTEGER", "PRICE", "SERIAL"],
         "model": "collection",
         "validations": { "required": true }
       },
