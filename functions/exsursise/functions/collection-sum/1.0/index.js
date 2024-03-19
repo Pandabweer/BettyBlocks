@@ -1,6 +1,6 @@
 const collectionSum = async ({
   collection: { data: collection },
-  property: [{ kind: propertyKind, name: propertyName }]
+  property: [{ kind: propertyKind, name: propertyName }],
 }) => {
   return {
     out: collection.reduce(

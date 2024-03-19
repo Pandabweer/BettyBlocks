@@ -1,3 +1,3 @@
 const gql = async (query) => {
-  return [{ id: 1, name: 'Bruce Wayne' }];
+  return [{ id: 1, name: "Bruce Wayne" }];
 };
