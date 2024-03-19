@@ -1,0 +1,79 @@
+{
+  "label": "Map",
+  "description": "A map function",
+  "category": "CRUD",
+  "icon": { "name": "DataIcon", "color": "Teal" },
+  "options": [
+    {
+      "name": "collection",
+      "label": "Collection",
+      "meta": {
+        "type": "Collection",
+        "additional": {
+          "model": ["name"]
+        },
+        "validations": { "required": true }
+      }
+    },
+    {
+      "meta": {
+        "type": "Property",
+        "model": "collection",
+        "validations": { "required": true }
+      },
+      "configuration": {
+        "dependsOn": [
+          {
+            "option": "collection",
+            "action": "CLEAR"
+          }
+        ]
+      },
+      "name": "property",
+      "label": "Property"
+    },
+    {
+      "name": "upsert",
+      "label": "Upsert to database",
+      "info": "Insert collection on the database based on the ID",
+      "meta": {
+        "type": "Boolean",
+        "default": false
+      }
+    },
+    {
+      "info": "Javascript expression, use reserved name property to use the current property value",
+      "meta": {
+        "type": "MultilineText",
+        "validations": { "required": true }
+      },
+      "name": "expression",
+      "label": "Expression",
+      "configuration": {
+        "placeholder": "property + 2"
+      }
+    },
+    {
+      "info": "Map the values that you want to use in your expression",
+      "label": "Variables",
+      "meta": {
+        "type": "Map"
+      },
+      "name": "variables"
+    },
+    {
+      "meta": {
+        "type": "Output",
+        "output": {
+          "type": "Collection",
+          "model": "collection"
+        },
+        "validations": { "required": true }
+      },
+      "name": "out",
+      "label": "As",
+      "info": "The resulting mutation on the collection AS collection"
+    }
+  ],
+  "yields": "NONE"
+}
