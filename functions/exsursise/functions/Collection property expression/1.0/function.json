@@ -1,6 +1,6 @@
 {
-  "label": "Map",
-  "description": "A map function",
+  "label": "Collection property expression",
+  "description": "This is a function that, based on the selected collection, is able to dynamically modify a property using expressions.",
   "category": "CRUD",
   "icon": { "name": "DataIcon", "color": "Teal" },
   "options": [
@@ -35,7 +35,7 @@
     {
       "name": "upsert",
       "label": "Upsert to database",
-      "info": "Insert collection on the database based on the ID",
+      "info": "Insert collection directly in the database",
       "meta": {
         "type": "Boolean",
         "default": false
