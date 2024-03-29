@@ -1,4 +1,4 @@
-import templayed from "../../utils/templayed";
+import templayed from "./templayed";
 
 const collectionFunctions = async ({
   collection: {
