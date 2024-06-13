@@ -1,0 +1,58 @@
+{
+  "description": "Step to remove records from a model, with the option to specify how many records to delete to prevent timeouts or other issues.",
+  "label": "Delete All Records With Limit",
+  "category": "CRUD",
+  "icon": {
+    "color": "Pink",
+    "name": "TrashIcon"
+  },
+  "options": [
+    {
+      "name": "model",
+      "label": "Model",
+      "info": "The model for which you want to delete all records",
+      "meta": {
+        "type": "Model",
+        "validations": {
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "numberOfRecordsToDelete",
+      "info": "When deleting huge ammount of records at once, we will limit the total ammount of records to be deleted to this number",
+      "label": "Limit the number of records to delete",
+      "meta": {
+        "type": "Number"
+      }
+    },
+    {
+      "name": "filter",
+      "label": "Filter",
+      "info": "Filter based on Data API filter with variable options.",
+      "meta": {
+        "type": "Text",
+        "default": ""
+      }
+    },
+    {
+      "info": "Variables to be used in the filter option.",
+      "label": "Variables",
+      "meta": {
+        "type": "Map"
+      },
+      "name": "filterVars"
+    },
+    {
+      "name": "result",
+      "label": "Result",
+      "meta": {
+        "type": "Output",
+        "output": {
+          "type": "Text"
+        }
+      }
+    }
+  ],
+  "yields": "NONE"
+}
