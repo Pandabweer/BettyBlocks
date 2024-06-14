@@ -11,7 +11,6 @@ const deleteAllWithLimit = async ({
   }
 
   const totalCount = await queryRecords(modelName, filter, filterVars, 1, true);
-
   const realAmtToDelete = numberOfRecordsToDelete
     ? numberOfRecordsToDelete > totalCount
       ? totalCount
@@ -21,10 +20,8 @@ const deleteAllWithLimit = async ({
 
   for (let index = 1; index - 1 < batchesCount; index += 1) {
     const take = index * 200 > realAmtToDelete ? realAmtToDelete % 200 : 200;
-
     const queryResult = await queryRecords(modelName, filter, filterVars, take);
     const ids = queryResult.map((item) => item.id);
-
     const deleteMutation = `
       mutation($input: ${modelName}Input) {
         deleteMany${modelName}(input: $input) {
@@ -38,7 +35,6 @@ const deleteAllWithLimit = async ({
       throw errors;
     }
   }
-
   return {
     result: `${realAmtToDelete} records from ${modelName} have been deleted`,
   };
