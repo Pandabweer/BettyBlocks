@@ -1,27 +1,30 @@
 import queryRecords from "../../utils/queryRecords";
 
-const deleteAllWithLimit = async ({
-  model: { name: modelName },
-  numberOfRecordsToDelete,
-  filter,
-  filterVars,
-}) => {
-  if (numberOfRecordsToDelete <= 0 && numberOfRecordsToDelete != null) {
-    throw new Error("Amount of records cannot be lower than or equal to 0");
+const deleteAllWithLimit = async ({ model: { name: modelName }, amountToDelete, batchSize, filter, filterVars }) => {
+  if (amountToDelete <= 0 && amountToDelete != null) {
+    throw new Error("Delete amount cannot be lower than or equal to 0");
+  }
+  if (batchSize <= 0) {
+    throw new Error("Batch size cannot be lower than or equal to 0");
   }
 
-  const totalCount = await queryRecords(modelName, filter, filterVars, 1, true);
-  const realAmtToDelete = numberOfRecordsToDelete
-    ? numberOfRecordsToDelete > totalCount
-      ? totalCount
-      : numberOfRecordsToDelete
-    : totalCount;
-  const batchesCount = Math.ceil(realAmtToDelete / 200);
+  const recCount = await queryRecords(modelName, filter, filterVars, 1, 0, true);
+  const realAmtToDelete = amountToDelete ? (amountToDelete > recCount ? recCount : amountToDelete) : recCount;
+  const batchesCount = Math.ceil(realAmtToDelete / batchSize);
 
-  for (let index = 1; index - 1 < batchesCount; index += 1) {
-    const take = index * 200 > realAmtToDelete ? realAmtToDelete % 200 : 200;
-    const queryResult = await queryRecords(modelName, filter, filterVars, take);
-    const ids = queryResult.map((item) => item.id);
+  for (let batchIndex = 1; batchIndex - 1 < batchesCount; batchIndex += 1) {
+    const collectionAmtToDelete = batchIndex * batchSize > realAmtToDelete ? realAmtToDelete % batchSize : batchSize;
+    const collectionBatchCount = Math.ceil(collectionAmtToDelete / 200);
+
+    let ids = [];
+    for (let index = 1; index - 1 < collectionBatchCount; index += 1) {
+      const take = index * 200 > collectionAmtToDelete ? collectionAmtToDelete % 200 : 200;
+      const skip = (index - 1) * 200;
+      const queryResult = await queryRecords(modelName, filter, filterVars, take, skip);
+
+      ids.push(...queryResult.map((item) => item.id));
+    }
+
     const deleteMutation = `
       mutation($input: ${modelName}Input) {
         deleteMany${modelName}(input: $input) {
@@ -29,7 +32,6 @@ const deleteAllWithLimit = async ({
         }
       }
     `;
-
     const { errors } = await gql(deleteMutation, { input: { ids } });
     if (errors) {
       throw errors;

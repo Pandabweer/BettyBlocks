@@ -19,11 +19,29 @@
       }
     },
     {
-      "name": "numberOfRecordsToDelete",
+      "name": "amountToDelete",
       "info": "When deleting huge ammount of records at once, we will limit the total ammount of records to be deleted to this number",
       "label": "Limit the number of records to delete",
       "meta": {
-        "type": "Number"
+        "type": "Number",
+        "validations": {
+          "min": 1,
+          "max": 200000
+        }
+      }
+    },
+    {
+      "name": "batchSize",
+      "info": "Deleting records in larger batches will increase performance, however if the batch size is too big it could decrease the amount deleted because it will first initiate a list to delete first",
+      "label": "Batch size in what records will be deleted",
+      "meta": {
+        "type": "Number",
+        "default": 5000,
+        "validations": {
+          "required": true,
+          "min": 1,
+          "max": 200000
+        }
       }
     },
     {

@@ -5,6 +5,7 @@ async function queryRecords(
   filter,
   filterVars,
   take,
+  skip,
   count = false,
 ) {
   const varMap = filterVars.reduce((previousValue, currentValue) => {
@@ -13,9 +14,10 @@ async function queryRecords(
   }, {});
 
   const where = filter ? `where: { ${templayed(filter || "")(varMap)} }, ` : "";
+  const skip_fmt = count ? "" : `, skip: ${skip}`;
   const getCountQuery = `
     query {
-      all${modelName} (${where}take: ${take}) {
+      all${modelName} (${where}take: ${take}${skip_fmt}) {
         ${count ? "totalCount" : "results { id }"}
       }
     }
