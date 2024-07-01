@@ -1,29 +1,17 @@
-import templayed from "./templayed";
+import stringMap from "./utilityFuncs";
 
-async function queryRecords(
-  modelName,
-  filter,
-  filterVars,
-  take,
-  skip,
-  count = false,
-) {
-  const varMap = filterVars.reduce((previousValue, currentValue) => {
-    previousValue[currentValue.key] = currentValue.value;
-    return previousValue;
-  }, {});
-
-  const where = filter ? `where: { ${templayed(filter || "")(varMap)} }, ` : "";
+async function queryRecords(modelName, filter, filterVars, take, skip, bodyQuery, count = false) {
+  const where = filter ? `where: { ${stringMap(filter, filterVars)} }, ` : "";
   const skip_fmt = count ? "" : `, skip: ${skip}`;
-  const getCountQuery = `
+  const getQuery = `
     query {
       all${modelName} (${where}take: ${take}${skip_fmt}) {
-        ${count ? "totalCount" : "results { id }"}
+        ${count ? "totalCount" : `results { ${bodyQuery} }`}
       }
     }
   `;
 
-  const { data, errors } = await gql(getCountQuery);
+  const { data, errors } = await gql(getQuery);
 
   if (errors) {
     throw errors;
