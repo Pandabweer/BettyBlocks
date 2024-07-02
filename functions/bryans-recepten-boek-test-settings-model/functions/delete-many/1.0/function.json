@@ -21,7 +21,7 @@
     {
       "name": "amountToDelete",
       "info": "When deleting huge ammount of records at once, we will limit the total ammount of records to be deleted to this number. Keep in mind this is from the parent record, this amount does not consider child relations if enabled",
-      "label": "Limit the number of records to delete",
+      "label": "Limit the number of parent records to delete",
       "meta": {
         "type": "Number",
         "validations": {
